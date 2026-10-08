@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security check — example.com</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:880px;margin:2rem auto;padding:0 1rem;color:#1f2328;background:#fff}
+.grade{display:inline-block;font-size:2.2rem;font-weight:700;color:#fff;background:#c62828;border-radius:10px;padding:.2rem 1rem}
+table{border-collapse:collapse;width:100%;margin:1.5rem 0}td{border-bottom:1px solid #d0d7de;padding:.5rem;vertical-align:top}
+td:first-child{width:1.5rem;text-align:center;font-weight:700}tr.pass td:first-child{color:#1a7f37}
+tr.fail td:first-child{color:#c62828}tr.warn td:first-child{color:#b58100}
+.sev{font-size:.8rem;background:#eaeef2;border-radius:4px;padding:0 .35rem}li{margin:.4rem 0}small{color:#59636e}
+</style></head><body>
+<h1>Security check — example.com</h1>
+<p><span class="grade">F</span> &nbsp; Score <b>34/100</b> · 2026-10-08</p>
+<table><tr class="fail"><td>✘</td><td>HTTP → HTTPS redirect</td><td>The site is served over plain HTTP without redirecting.</td></tr><tr class="pass"><td>✔</td><td>TLS certificate</td><td>Valid for 78 more days, issuer SSL Corporation.</td></tr><tr class="pass"><td>✔</td><td>TLS version</td><td>Negotiated TLSv1.3.</td></tr><tr class="fail"><td>✘</td><td>Strict-Transport-Security</td><td>Header missing.</td></tr><tr class="fail"><td>✘</td><td>Content-Security-Policy</td><td>Header missing.</td></tr><tr class="fail"><td>✘</td><td>Clickjacking protection</td><td>Pages can be framed by any site.</td></tr><tr class="fail"><td>✘</td><td>X-Content-Type-Options</td><td>Header missing.</td></tr><tr class="fail"><td>✘</td><td>Referrer-Policy</td><td>Header missing (full URLs may leak to other sites).</td></tr><tr class="fail"><td>✘</td><td>Permissions-Policy</td><td>Header missing.</td></tr><tr class="pass"><td>✔</td><td>Version disclosure</td><td>No version numbers in server headers.</td></tr><tr class="info"><td>·</td><td>Cookie flags</td><td>The homepage sets no cookies.</td></tr><tr class="warn"><td>!</td><td>security.txt</td><td>No /.well-known/security.txt.</td></tr></table>
+<h2>Recommended fixes</h2><ol><li><b>HTTP → HTTPS redirect</b> <span class='sev'>high</span> — Redirect all http:// requests to https:// with a 301.</li><li><b>Strict-Transport-Security</b> <span class='sev'>medium</span> — Add: Strict-Transport-Security: max-age=31536000; includeSubDomains</li><li><b>Content-Security-Policy</b> <span class='sev'>medium</span> — Define a CSP; start with Content-Security-Policy-Report-Only to avoid breaking the site.</li><li><b>Clickjacking protection</b> <span class='sev'>medium</span> — Add: X-Frame-Options: SAMEORIGIN (or CSP frame-ancestors &#x27;self&#x27;).</li><li><b>X-Content-Type-Options</b> <span class='sev'>low</span> — Add: X-Content-Type-Options: nosniff</li><li><b>Referrer-Policy</b> <span class='sev'>low</span> — Add: Referrer-Policy: strict-origin-when-cross-origin</li><li><b>Permissions-Policy</b> <span class='sev'>low</span> — Add e.g.: Permissions-Policy: camera=(), microphone=(), geolocation=()</li><li><b>security.txt</b> <span class='sev'>low</span> — Publish a security.txt so researchers know how to report problems (securitytxt.org).</li></ol>
+<p><small>Passive check: only standard page requests were made. It does not replace a full penetration test.</small></p>
+</body></html>
