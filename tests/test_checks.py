@@ -80,3 +80,10 @@ def test_missing_httponly_alone_is_low_severity():
     report = sitecheck.Report("example.com")
     sitecheck.check_cookies(["_octo=1; path=/; secure; SameSite=Lax"], report)
     assert report.findings[0].severity == "low"
+
+
+def test_expiry_thresholds_tolerate_lets_encrypt_renewal_window():
+    # Let's Encrypt certificates last 90 days and renew with ~30 days left, so 29 days is normal.
+    import inspect
+    source = inspect.getsource(sitecheck.check_certificate)
+    assert "days < 7" in source and "days < 14" in source

@@ -101,10 +101,10 @@ def check_certificate(host: str, report: Report) -> None:
     expires = datetime.fromtimestamp(ssl.cert_time_to_seconds(cert["notAfter"]), tz=timezone.utc)
     days = (expires - datetime.now(timezone.utc)).days
     issuer = dict(item[0] for item in cert.get("issuer", ())).get("organizationName", "unknown")
-    if days < 14:
+    if days < 7:
         report.add("TLS certificate", "fail", "high", f"Expires in {days} days ({expires:%Y-%m-%d}), issuer {issuer}.",
                    "Renew the certificate now and enable automatic renewal.")
-    elif days < 30:
+    elif days < 14:
         report.add("TLS certificate", "warn", "low", f"Expires in {days} days ({expires:%Y-%m-%d}), issuer {issuer}.",
                    "Check that automatic renewal is working.")
     else:
